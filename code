@@ -1,0 +1,125 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+class votercard{
+    private:
+    string name;
+    string gen;
+    int age;
+    long vot_id;
+    public:
+    void read();
+    void display();
+    void updateInfo(int a);
+    int searchVoterId(long votid);
+};
+void votercard::read()
+{
+    cout<<"Enter Name:";
+    cin>>name;
+    cout<<"Enter Gender of voter:";
+    cin>>gen;
+    cout<<"Enter age of voter:";
+    cin>>age;
+    cout<<"Enter voterid of voter:";
+    cin>>vot_id;
+}
+void votercard::display()
+{
+    cout<<"Name:"<<name<<endl;
+    cout<<"Gender:"<<gen<<endl;
+    cout<<"age:"<<age<<endl;
+    cout<<"VoterID:"<<vot_id<<endl;
+}
+int votercard::searchVoterId(long votid)
+{
+    if(votid==vot_id){
+        return 1;
+    }
+        else
+        return 0;
+    }
+void votercard::updateInfo(int a)
+{
+    switch(a)
+    { 
+        case 1:
+        cout<<"Enter the New age of voter:"<<endl;
+        cin>>age;
+        break;
+        case 2:
+        cout<<"Enter New Voterid of voter:"<<endl;
+        cin>>vot_id;
+        break;
+    }
+}
+int main() {
+    votercard s[50],k;
+    int i,n,pos1,pos2,id,flag=0,up;
+    cout<<"Enter Number of voters:";
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {   cout<<"Enter name ,gender ,age & voterId of person"<<(i+1)<<":"<<endl;
+        s[i].read();
+    }
+    int choice;
+    cout<<"Enter 1. for Display the Information"<<endl;
+    cout<<"Enter 2. for Inserting the Information"<<endl;
+    cout<<"Enter 3. for Deleting the Information"<<endl;
+    cout<<"Enter 4. for Updating the Information"<<endl;
+    cout<<"Enter Your Choice which operation you want to Do:";
+    cin>>choice;
+switch(choice)
+    {
+    case 1:
+     for(int i=0;i<n;i++)
+    {  cout<<"Information of Voter"<<(i+1)<<":"<<endl;
+        s[i].display();
+    }
+    break;
+    case 2:
+    cout<<"Enter the position where you want to insert the New Information:";
+    cin>>pos1;
+    for(i=n;i>pos1-1;i--)
+    {
+        s[i+1]=s[i];
+        n++;
+    }
+    cout<<"Enter the New Information that you want to Insert:"<<endl;
+    s[i].read();
+    cout<<"displaying the New Information:"<<endl;;
+    s[i].display();
+    break;
+    case 3:
+    cout<<"Enter the position which you want to Delete:";
+    cin>>pos2;
+    for(i=pos2-1;i<n;i++)
+    {
+        s[i]=s[i+1];
+        n--;
+    }
+    s[i].display();
+    break;
+    case 4:
+    cout<<"Enter the ID  of voter whose information you want to update:";
+    cin>>id;
+    for(int i=0;i<n;i++)
+    {
+        if(s[i].searchVoterId(id)==1){
+        cout<<"YES!! Voterid Exist"<<endl;
+        flag=1;
+        cout<<"Update your information:"<<endl;
+        cout<<"Enter 1 for updating age:"<<endl;
+        cout<<"Enter 2 for updating voterid:"<<endl;
+        cin>>up;
+        s[i].updateInfo(up);
+        break;
+        }
+        if(flag==0)
+        cout<<"NO Record not Found";
+    } 
+    break;
+       
+}
+    return 0;
+}
